@@ -5,8 +5,6 @@ Version:	0.52a
 Release:	2
 License:	GPL
 Group:		X11/Applications/Multimedia
-Group(de):	X11/Applikationen/Multimedia
-Group(pl):	X11/Aplikacje/Multimedia
 Source0:	http://mars.tuwien.ac.at/~roman/nuppelvideo/%{name}-%{version}.tar.gz
 Patch0:		%{name}-make.patch
 URL:		http://mars.tuwien.ac.at/~roman/nuppelvideo/

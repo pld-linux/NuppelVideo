@@ -1,8 +1,15 @@
+#
+# Conditional build:
+%bcond_with	mmx	# use MMX (makes sense on i586/i686)
+#
+%ifarch athlon pentium3 pentium4
+%define	with_mmx	1
+%endif
 Summary:	Fast movie recorder and player for Linux
 Summary(pl):	Szybka nagrywarka i odtwarzacz filmów pod Linuksa
 Name:		NuppelVideo
 Version:	0.52a
-Release:	4
+Release:	5
 License:	GPL v2
 Group:		X11/Applications/Multimedia
 Source0:	http://frost.htu.tuwien.ac.at/~roman/nuppelvideo/%{name}-%{version}.tar.gz
@@ -11,6 +18,7 @@ Patch0:		%{name}-make.patch
 Patch1:		%{name}-nonx86.patch
 URL:		http://frost.htu.tuwien.ac.at/~roman/nuppelvideo/
 BuildRequires:	XFree86-devel
+BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -30,14 +38,12 @@ RTjpeg2.0 (poprawiony przez Joerga Waltera i Wima Taymansa).
 %patch0 -p1
 %patch1 -p1
 
+sed -i -e 's@-L/usr/X11R6/lib@-L/usr/X11R6/%{_lib}@' Makefile
+
 %build
 %{__make} \
 	CC=%{__cc} \
-%ifarch athlon
-	COPTS="%{rpmcflags} -DMMX"
-%else
-	COPTS="%{rpmcflags}"
-%endif
+	COPTS="%{rpmcflags}%{?with_mmx: -DMMX}"
 
 %install
 rm -rf $RPM_BUILD_ROOT

@@ -2,7 +2,7 @@ Summary:	Fast movie recorder and player for Linux
 Summary(pl):	Szybka nagrywarka i odtwarzacz filmów pod Linuksa
 Name:		NuppelVideo
 Version:	0.52a
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	http://mars.tuwien.ac.at/~roman/nuppelvideo/%{name}-%{version}.tar.gz
@@ -33,7 +33,7 @@ RTjpeg2.0 (poprawiony przez Joerga Waltera i Wima Taymansa).
 %build
 %{__make} \
 	CC=%{__cc} \
-%ifarch i686 athlon
+%ifarch athlon
 	COPTS="%{rpmcflags} -DMMX"
 %else
 	COPTS="%{rpmcflags}"

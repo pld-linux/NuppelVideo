@@ -1,7 +1,15 @@
 diff -Nur NuppelVideo-0.52a.orig/Makefile NuppelVideo-0.52a/Makefile
 --- NuppelVideo-0.52a.orig/Makefile	Sat Jul  7 14:09:14 2001
 +++ NuppelVideo-0.52a/Makefile	Thu Aug 30 12:24:18 2001
-@@ -19,25 +19,25 @@
+@@ -12,32 +12,32 @@
+ 	strip nuvrec nuvplay
+ 
+ RTjpegN.o: RTjpegN.c RTjpegN.h
+-	$(CC) -c $(COPTSRT) RTjpegN.c
++	$(CC) -c $(COPTS) RTjpegN.c
+ 
+ XJ.o:	XJ.c
+ 	$(CC) -c $(COPTS) XJ.c
  
  
  soxfuncs.o: soxfuncs.c

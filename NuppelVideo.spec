@@ -46,12 +46,11 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	BINDIR=%{_bindir}
 
-gzip -9nf README* LICENSE*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc README* LICENSE*
 %attr(755,root,root) %{_bindir}/*

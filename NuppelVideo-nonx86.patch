@@ -1,0 +1,143 @@
+--- NuppelVideo-0.52a/yuv2rgb_mmx.c.orig	Thu Mar 15 04:29:11 2001
++++ NuppelVideo-0.52a/yuv2rgb_mmx.c	Thu Oct 30 12:10:00 2003
+@@ -28,13 +28,15 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
++#include "yuv2rgb.h"
++
++#ifdef MMX
++
+ #include "mmx.h"
+ //#include "libmpeg2/mpeg2.h"
+ //#include "libmpeg2/mpeg2_internal.h"
+ #include <inttypes.h>
+ 
+-#include "yuv2rgb.h"
+-
+ /* hope these constant values are cache line aligned */
+ uint64_t mmx_80w = 0x0080008000800080;
+ uint64_t mmx_10w = 0x1010101010101010;
+@@ -399,6 +401,8 @@
+     __asm__ ("emms\n\t");
+ }
+ 
++#endif
++
+ yuv2rgb_fun yuv2rgb_init_mmx (int bpp, int mode)
+ {
+ //    if (bpp == 15 || bpp == 16) {
+--- NuppelVideo-0.52a/areaDeinterlace.c.orig	Thu Mar 15 04:29:11 2001
++++ NuppelVideo-0.52a/areaDeinterlace.c	Thu Oct 30 12:10:56 2003
+@@ -8,7 +8,7 @@
+ /* licensed under the GNU Public License (GPL) v2               */
+ 
+ #include <stdlib.h>
+-
++#include <string.h>
+ 
+ typedef struct MyFilterData
+ {
+--- NuppelVideo-0.52a/resample.c.orig	Sun Jul  1 21:05:53 2001
++++ NuppelVideo-0.52a/resample.c	Thu Oct 30 12:15:08 2003
+@@ -210,7 +210,6 @@
+ 	resample_t r = (resample_t) effp->priv;
+ 	LONG Xoff, gcdrate;
+ 	int i;
+-	extern long st_gcd(P2(long a,long b));
+ 
+ 	r->Factor = (double)effp->outinfo.rate / (double)effp->ininfo.rate;
+ 
+--- NuppelVideo-0.52a/RTjpegN.h.orig	Thu Mar 15 04:29:11 2001
++++ NuppelVideo-0.52a/RTjpegN.h	Thu Oct 30 12:27:05 2003
+@@ -22,7 +22,8 @@
+     
+ */
+ 
+-#ifndef _I386_TYPES_H
++#include <linux/types.h>
++#if 0
+ typedef unsigned char __u8;
+ typedef unsigned short __u16;
+ typedef unsigned long __u32;
+@@ -33,8 +34,8 @@
+ #endif
+ 
+ extern void RTjpeg_init_Q(__u8 Q);
+-extern void RTjpeg_init_compress(long unsigned int *buf, int width, int height, __u8 Q);
+-extern void RTjpeg_init_decompress(long unsigned int *buf, int width, int height);
++extern void RTjpeg_init_compress(__u32 *buf, int width, int height, __u8 Q);
++extern void RTjpeg_init_decompress(__u32 *buf, int width, int height);
+ extern int RTjpeg_compressYUV420(__s8 *sp, unsigned char *bp);
+ extern int RTjpeg_compressYUV422(__s8 *sp, unsigned char *bp);
+ extern void RTjpeg_decompressYUV420(__s8 *sp, __u8 *bp);
+--- NuppelVideo-0.52a/nuvrec.c.orig	Wed Jul  4 23:59:58 2001
++++ NuppelVideo-0.52a/nuvrec.c	Thu Oct 30 12:38:53 2003
+@@ -31,6 +31,7 @@
+ #include <linux/videodev.h>
+ #include <linux/wait.h>
+ #include <errno.h>
++#include <malloc.h>
+ #include "minilzo.h"
+ #include "RTjpegN.h"
+ #include "nuppelvideo.h"
+@@ -675,8 +676,7 @@
+     audiobuffer[act].sample = act_audio_sample;
+     audiobuffer[act].timecode = tcres;
+ 
+-    memcpy((unsigned char *)((unsigned int)sharedbuffer + 
+-                             (unsigned int)audiobuffer[act].buffer_offset), 
++    memcpy((unsigned char *)sharedbuffer + (ptrdiff_t)audiobuffer[act].buffer_offset,
+                              buffer, audio_buffer_size);
+  
+     audiobuffer[act].freeToBuffer = 0;
+@@ -699,7 +699,7 @@
+   struct rtfileheader fileheader;
+   struct rtframeheader frameheader;
+   char realfname[255];
+-  static unsigned long int tbls[128];
++  static __u32 tbls[128];
+   static const char finfo[12] = "NuppelVideo";
+   static const char vers[5]   = "0.05";
+ 
+@@ -830,8 +830,7 @@
+       if (videobuffer[act].freeToEncode) {
+         DP("before write frame");
+         // we have at least 1 frame --> encode and write it :-)
+-        writeit((unsigned char *)((unsigned int)sharedbuffer + 
+-                                  (unsigned int)videobuffer[act].buffer_offset), 
++        writeit((unsigned char *)sharedbuffer + (ptrdiff_t)videobuffer[act].buffer_offset, 
+                                   videobuffer[act].sample,
+                                   videobuffer[act].timecode);
+         DP("after write frame");
+@@ -850,8 +849,7 @@
+       if (audiobuffer[act_audio_encode].freeToEncode) {
+         DP("before write audio frame");
+         // we have at least 1 frame --> write it :-)
+-        writeitaudio((unsigned char *)((unsigned int)sharedbuffer + 
+-                                      (unsigned int)audiobuffer[act_audio_encode].buffer_offset), 
++        writeitaudio((unsigned char *)sharedbuffer + (ptrdiff_t)audiobuffer[act_audio_encode].buffer_offset, 
+                                       audiobuffer[act_audio_encode].sample, 
+                                       audiobuffer[act_audio_encode].timecode);
+         DP("after write audio frame");
+@@ -950,8 +948,7 @@
+ 
+ DP("buffered frame");
+ 
+- memcpy((unsigned char *)((unsigned int)sharedbuffer + 
+-                          (unsigned int)videobuffer[act].buffer_offset), 
++ memcpy((unsigned char *)sharedbuffer + (ptrdiff_t)videobuffer[act].buffer_offset,
+                           buf, video_buffer_size);
+  
+  videobuffer[act].freeToBuffer = 0;
+--- NuppelVideo-0.52a/rtjpeg_plugin.c.orig	Tue Jul  3 15:34:02 2001
++++ NuppelVideo-0.52a/rtjpeg_plugin.c	Thu Oct 30 12:40:46 2003
+@@ -58,7 +58,7 @@
+ 
+ int rtjpeg_open(char *tplorg)
+ {
+-  unsigned long int tbls[128];
++  __u32 tbls[128];
+   struct rtframeheader frameheader;
+   struct stat fstatistics;
+   FILE   *editfile;

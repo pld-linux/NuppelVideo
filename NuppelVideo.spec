@@ -3,16 +3,15 @@ Summary(pl):	Szybka nagrywarka i odtwarzacz filmów pod Linuksa
 Name:		NuppelVideo
 Version:	0.52a
 Release:	3
-License:	GPL
+License:	GPL v2
 Group:		X11/Applications/Multimedia
 Source0:	http://frost.htu.tuwien.ac.at/~roman/nuppelvideo/%{name}-%{version}.tar.gz
 # Source0-md5:	320fa43a19c71778ea0d403528125c1e
 Patch0:		%{name}-make.patch
+Patch1:		%{name}-nonx86.patch
 URL:		http://frost.htu.tuwien.ac.at/~roman/nuppelvideo/
 BuildRequires:	XFree86-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-ExclusiveArch:	%{ix86}
-
 
 %description
 NuppelVideo is a simple low consuming and fast capture program for
@@ -27,8 +26,9 @@ test3* Justina Schoemanna, który napisa³ bardzo szybki i dobry codec
 RTjpeg2.0 (poprawiony przez Joerga Waltera i Wima Taymansa).
 
 %prep
-%setup  -q
+%setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__make} \

@@ -12,7 +12,6 @@ BuildRequires:	XFree86-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 ExclusiveArch:	%{ix86}
 
-%define		_prefix		/usr/X11R6
 
 %description
 NuppelVideo is a simple low consuming and fast capture program for

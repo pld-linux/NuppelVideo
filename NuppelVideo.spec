@@ -8,7 +8,7 @@ Group:		X11/Applications/Multimedia
 Source0:	http://frost.htu.tuwien.ac.at/~roman/nuppelvideo/%{name}-%{version}.tar.gz
 # Source0-md5:	320fa43a19c71778ea0d403528125c1e
 Patch0:		%{name}-make.patch
-URL:		http://frost.htu.tuwien.ac.at/~roman/nuppelvideo/ 
+URL:		http://frost.htu.tuwien.ac.at/~roman/nuppelvideo/
 BuildRequires:	XFree86-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 ExclusiveArch:	%{ix86}

@@ -8,8 +8,9 @@ Group:		X11/Applications/Multimedia
 Source0:	http://mars.tuwien.ac.at/~roman/nuppelvideo/%{name}-%{version}.tar.gz
 Patch0:		%{name}-make.patch
 URL:		http://mars.tuwien.ac.at/~roman/nuppelvideo/
-BUildRequires:	XFree86-devel
+BuildRequires:	XFree86-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+ExclusiveArch:	%{ix86}
 
 %define		_prefix		/usr/X11R6
 

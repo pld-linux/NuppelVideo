@@ -5,9 +5,9 @@ Version:	0.52a
 Release:	3
 License:	GPL
 Group:		X11/Applications/Multimedia
-Source0:	http://mars.tuwien.ac.at/~roman/nuppelvideo/%{name}-%{version}.tar.gz
+Source0:	http://frost.htu.tuwien.ac.at/~roman/nuppelvideo/%{name}-%{version}.tar.gz
 Patch0:		%{name}-make.patch
-URL:		http://mars.tuwien.ac.at/~roman/nuppelvideo/
+URL:		http://frost.htu.tuwien.ac.at/~roman/nuppelvideo/ 
 BuildRequires:	XFree86-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 ExclusiveArch:	%{ix86}
@@ -45,7 +45,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	BINDIR=%{_bindir}
-
 
 %clean
 rm -rf $RPM_BUILD_ROOT

@@ -1,6 +1,38 @@
 diff -Nur NuppelVideo-0.52a.orig/Makefile NuppelVideo-0.52a/Makefile
 --- NuppelVideo-0.52a.orig/Makefile	Sat Jul  7 14:09:14 2001
 +++ NuppelVideo-0.52a/Makefile	Thu Aug 30 12:24:18 2001
+@@ -19,25 +19,25 @@
+ 
+ 
+ soxfuncs.o: soxfuncs.c
+-	$(CC) $(COPTS) -O3 -funroll-loops -finline-functions -c soxfuncs.c
++	$(CC) $(COPTS) -c soxfuncs.c
+ 
+ 
+ resample.o: resample.c
+-	$(CC) $(COPTS) -O3 -funroll-loops -finline-functions -c resample.c
++	$(CC) $(COPTS) -c resample.c
+ 
+ 
+ minilzo.o: minilzo.c minilzo.h
+-	$(CC) $(COPTS) -O3 -fexpensive-optimizations -funroll-loops -finline-functions -c minilzo.c
++	$(CC) $(COPTS) -c minilzo.c
+ 
+ 
+ yuv2rgb_mmx.o: yuv2rgb_mmx.c yuv2rgb.h
+-	$(CC) $(COPTS) -O3 -funroll-loops -finline-functions -c yuv2rgb_mmx.c
++	$(CC) $(COPTS) -c yuv2rgb_mmx.c
+ 
+ areaDeinterlace.o: areaDeinterlace.h areaDeinterlace.c
+-	$(CC) $(COPTS) -O3 -fexpensive-optimizations -funroll-loops -finline-functions -c areaDeinterlace.c
++	$(CC) $(COPTS) -c areaDeinterlace.c
+ 
+ rtjpeg_plugin.o: rtjpeg_plugin.c rtjpeg_plugin.h
+-	$(CC) $(COPTS) -O3 -fexpensive-optimizations -funroll-loops -finline-functions -c rtjpeg_plugin.c
++	$(CC) $(COPTS) -c rtjpeg_plugin.c
+ 
+ nuvrec:	nuvrec.c RTjpegN.h RTjpegN.o minilzo.o
+ 	$(CC) $(COPTS) -o nuvrec minilzo.o RTjpegN.o nuvrec.c
 @@ -53,7 +53,8 @@
  
  install: nuvrec nuvplay

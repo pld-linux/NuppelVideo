@@ -1,0 +1,13 @@
+diff -Nur NuppelVideo-0.52a.orig/Makefile NuppelVideo-0.52a/Makefile
+--- NuppelVideo-0.52a.orig/Makefile	Sat Jul  7 14:09:14 2001
++++ NuppelVideo-0.52a/Makefile	Thu Aug 30 12:24:18 2001
+@@ -53,7 +53,8 @@
+ 
+ install: nuvrec nuvplay
+ 	 strip nuvrec nuvplay
+-	 install -m 755 nuvrec nuvplay nuvedit nuv2mpg nuv2vbr /usr/local/bin
++	 install -d $(DESTDIR)/$(BINDIR)
++	 install -m 755 nuvrec nuvplay nuvedit nuv2mpg nuv2vbr $(DESTDIR)/$(BINDIR)
+ 
+ clean:	
+ 	rm -f *.o nuvplay nuvrec 

@@ -42,7 +42,7 @@ sed -i -e 's@-L/usr/X11R6/lib@-L/usr/X11R6/%{_lib}@' Makefile
 
 %build
 %{__make} \
-	CC=%{__cc} \
+	CC="%{__cc}" \
 	COPTS="%{rpmcflags}%{?with_mmx: -DMMX}"
 
 %install

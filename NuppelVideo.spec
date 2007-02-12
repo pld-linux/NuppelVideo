@@ -6,7 +6,7 @@
 %define	with_mmx	1
 %endif
 Summary:	Fast movie recorder and player for Linux
-Summary(pl):	Szybka nagrywarka i odtwarzacz filmÛw pod Linuksa
+Summary(pl.UTF-8):   Szybka nagrywarka i odtwarzacz film√≥w pod Linuksa
 Name:		NuppelVideo
 Version:	0.52a
 Release:	5
@@ -27,10 +27,10 @@ bttv-cards (BT8x8) it is based on the RTjpeg2.0 test3* programs from
 Justin Schoemann, who wrote the very fast and fine RTjpeg2.0 codec
 (improved by Joerg Walter and Wim Taymans).
 
-%description -l pl
-NuppelVideo jest prostym, ma≥o zasoboøernym i szybkim programem do
-zrzucania obrazu z kart bttv (BT8x8) bazuj±cym na programach RTjpeg2.0
-test3* Justina Schoemanna, ktÛry napisa≥ bardzo szybki i dobry codec
+%description -l pl.UTF-8
+NuppelVideo jest prostym, ma≈Ço zasobo≈ºernym i szybkim programem do
+zrzucania obrazu z kart bttv (BT8x8) bazujƒÖcym na programach RTjpeg2.0
+test3* Justina Schoemanna, kt√≥ry napisa≈Ç bardzo szybki i dobry codec
 RTjpeg2.0 (poprawiony przez Joerga Waltera i Wima Taymansa).
 
 %prep

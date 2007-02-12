@@ -6,7 +6,7 @@
 %define	with_mmx	1
 %endif
 Summary:	Fast movie recorder and player for Linux
-Summary(pl.UTF-8):   Szybka nagrywarka i odtwarzacz filmów pod Linuksa
+Summary(pl.UTF-8):	Szybka nagrywarka i odtwarzacz filmów pod Linuksa
 Name:		NuppelVideo
 Version:	0.52a
 Release:	5

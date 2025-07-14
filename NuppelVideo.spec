@@ -35,8 +35,8 @@ RTjpeg2.0 (poprawiony przez Joerga Waltera i Wima Taymansa).
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 sed -i -e 's@-L/usr/X11R6/lib@-L/usr/X11R6/%{_lib}@' Makefile
 
